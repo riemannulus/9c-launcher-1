@@ -6,7 +6,7 @@ import { FetchError, HeadlessExitedError } from "../errors";
 import { execute, sleep } from "../utils";
 import fetch, { Response } from "electron-fetch";
 import { EventEmitter } from "ws";
-import { BlockHeader } from "src/interfaces/block-header";
+import { BlockMetadata } from "src/interfaces/block-header";
 import { KeyStore } from "./standalone/key-store";
 import { Validation } from "./standalone/validation";
 
@@ -174,13 +174,13 @@ class Standalone {
     return new Validation(this._path);
   }
 
-  public getTip(storeType: string, storePath: string): BlockHeader | null {
+  public getTip(storeType: string, storePath: string): BlockMetadata | null {
     try {
       return JSON.parse(
         execSync(`${this._path} chain tip ${storeType} ${storePath}`, {
           encoding: "utf-8",
         })
-      ) as BlockHeader;
+      ) as BlockMetadata;
     } catch (error) {
       // FIXME: define a new interface or research the type exists.
       if (

@@ -50,7 +50,14 @@ const apiLink = split(
   httpLink
 );
 
-const link = ApolloLink.from([new RetryLink(), apiLink]);
+const link = ApolloLink.from([
+  new RetryLink({
+    attempts: {
+      max: Infinity,
+    },
+  }),
+  apiLink,
+]);
 
 const client = new ApolloClient({
   link: link,
