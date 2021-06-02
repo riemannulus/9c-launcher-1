@@ -240,7 +240,6 @@ const Main: React.FC = () => {
 
   const removeCart = (item: CollectionItemModel) => {
     if (item.collectionPhase != CollectionPhase.LATEST) return;
-    if (item.tier === CollectionItemTier.TIER1) return;
 
     setTempCart((state) =>
       state.map((x) =>
